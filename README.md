@@ -1,64 +1,41 @@
-# DL Playground
+# Deep Learning Playground 🧪
 
-Thư mục dùng để lưu các notebook thử nghiệm, bài tập và đoạn code nhanh trong quá trình học Deep Learning.
+A repository containing Jupyter Notebooks used for quick testing, running code snippets, and experimenting during my Deep Learning studies. 
 
-## Bắt đầu nhanh với Google Colab
+## 🚀 The Workflow: GitHub + Colab + Drive
 
-1. Mở [Google Colab](https://colab.research.google.com/).
-2. Chọn **File > Upload notebook** và tải file `dl_playground_template.ipynb`.
-3. Chọn **Runtime > Change runtime type**:
-   - **Hardware accelerator**: chọn **T4 GPU** nếu cần chạy mô hình.
-   - **Runtime shape**: giữ mặc định nếu chỉ thử code nhỏ.
-4. Chạy lần lượt các cell từ trên xuống bằng nút ▶ hoặc **Runtime > Run all**.
+To keep the code version-controlled while utilizing cloud GPUs and storage for large datasets, this project follows a specific workflow:
 
-## Kết nối Google Drive
+### 1. Open and Run Code (Colab)
+We use Colab purely as the compute engine (RAM/GPU).
+1. Go to [Google Colab](https://colab.research.google.com/).
+2. Select **File > Open notebook > GitHub**.
+3. Paste this repository's URL and open the desired `.ipynb` file.
+4. Go to **Runtime > Change runtime type** and select **T4 GPU** if you need hardware acceleration.
 
-Trong notebook, chạy cell kết nối Drive. Colab sẽ yêu cầu:
+### 2. Manage Data (Google Drive)
+**Do not** commit large datasets, model weights, or output files to GitHub. Instead, use Google Drive as a mounted "data drive". 
 
-1. Cho phép truy cập tài khoản Google.
-2. Chọn tài khoản muốn dùng.
-3. Sao chép mã xác thực nếu được yêu cầu và dán lại vào Colab.
-
-Sau khi kết nối, file trong Drive có thể được truy cập qua:
-
+Run this in your notebook to access your data:
 ```python
-/content/drive/MyDrive/
+from google.colab import drive
+drive.mount('/content/drive')
 ```
+Recommendation: Keep all your data organized in a specific folder on your Drive (e.g., /content/drive/MyDrive/AI_Data/).
 
-Nên tạo một thư mục riêng, ví dụ:
+### 3. Save Changes (GitHub)
+❌ **DO NOT** select File > Save a copy in Drive. This will create a detached deep copy.
 
-```text
-MyDrive/dl-playground/
-├── data/
-├── notebooks/
-├── models/
-└── outputs/
+✅ **DO** select **File > Save a copy in GitHub** when you finish your session. This acts as a direct commit to this repository, saving your code and outputs cleanly.
+
+### 💻 Local Setup (Optional)
+If you prefer to test code locally (e.g., in VS Code) rather than on Colab:
 ```
+Bash
+# Create and activate a virtual environment
+python -m venv .venv
+.venv\Scripts\activate
 
-## Mở notebook trực tiếp từ GitHub
-
-Nếu repository đã được push lên GitHub, thay `OWNER/REPO` và `BRANCH` trong URL sau:
-
-```text
-https://colab.research.google.com/github/OWNER/REPO/blob/BRANCH/dl_playground_template.ipynb
+# Install Jupyter and required libraries
+pip install jupyterlab torch torchvision numpy pandas matplotlib
 ```
-
-Trong Colab, chọn **File > Save a copy in Drive** để lưu bản làm việc vào Google Drive.
-
-## Chạy local
-
-Nếu đã cài Python và Jupyter:
-
-```powershell
-py -m pip install jupyterlab notebook
-py -m jupyter lab
-```
-
-Sau đó mở file notebook trong trình duyệt. Các cell dành riêng cho Colab sẽ tự bỏ qua nếu đang chạy local.
-
-## Quy ước sử dụng
-
-- Mỗi chủ đề hoặc bài thử nghiệm nên có một notebook riêng.
-- Đặt tên theo dạng `topic_experiment.ipynb`.
-- Lưu dữ liệu lớn, model và output ở Drive; không commit vào Git.
-- Ghi rõ nguồn dữ liệu, phiên bản thư viện và kết quả chính trong notebook.
